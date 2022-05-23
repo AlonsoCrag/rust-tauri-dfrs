@@ -1,0 +1,21 @@
+#!/usr/bin/expect
+
+set timeout 5
+
+spawn scp [lindex $argv 2]:/home/alonso/Conversor/gifs/[lindex $argv 1] /home/alonso/Downloads
+
+expect {
+    -re "P|p+assword"  { send "[lindex $argv 0]\n" }    
+}
+
+expect {
+    -re ".*: No such file or directory" { send "echo  'Error404, the given file doesnt exists...' \n" }
+}
+
+expect {
+    -re "Permission denied, please try again." { send "echo  'Error404, the given file doesnt exists...' \n" }
+}
+
+expect {
+    send "hostname \n"
+}
